@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:9.6.3
+
+  api:
+    depends_on:
+      - db
+    image: node:alpine
+    volumes: 
+      - .:/home/node
+    ports:
+      - "3000:80"
+    command: ['npm', 'start']
+    working_dir: /home/node
