@@ -14,12 +14,11 @@
     "boom": "^5.1.0",
     "hapi": "^16.2.0",
     "joi": "^10.5.1",
+    "knex": "^0.13.0",
+    "objection": "^0.8.1",
     "pg": "^6.2.3",
     "pg-hstore": "^2.3.2",
-    "ramda": "^0.24.0",
-    "sequelize": "^3.30.4"
+    "ramda": "^0.24.0"
   },
-  "devDependencies": {
-    "sequelize-cli": "^2.7.0"
-  }
+  "devDependencies": {}
 }

@@ -1,21 +1,11 @@
 'use strict';
 
-module.exports = function(sequelize, DataTypes) {
+const objection = require('objection');
+const Model = objection.Model;
 
-    const User = sequelize.define('User',
-        {
-            first_name: DataTypes.STRING,
-            last_name: DataTypes.STRING,
-            bio: DataTypes.TEXT
-        },
-        {
-            classMethods: {
-                associate: function(models) {
-                // associations can be defined here
-                }
-            }
-        }
-    );
-    
-    return User;
+exports = module.exports = class User extends Model {
+    static get tableName() {
+        return 'users';
+    }
 };
+

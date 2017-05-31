@@ -1,9 +1,24 @@
 'use strict';
 
-const models = require('./models');
+const DB = require('./db');
+const User = require('./models/User');
 
-models.User.create({
-    first_name: 'Adilson',
-    last_name: 'Schmitt',
-    bio: 'Junior'
+DB.init();
+
+User.query().insert({
+    firstName: 'João',
+    lastName: 'José',
+    hashedPassword: '123321'
+}).then(user => {
+
+    console.log('created:', user.firstName, 'id:', user.id);
+    // Fetch all people named Sylvester.
+    return User.query().where('firstName', 'João');
+
+}).then(jooes => {
+
+    console.log('joões:', jooes);
+
 });
+
+
