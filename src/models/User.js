@@ -22,16 +22,20 @@ exports = module.exports = class User extends Model {
         return 'users';
     }
 
+    $beforeUpdate() {
+        this.updated_at = new Date().toISOString();
+    }
+
     $formatDatabaseJson(json) {
         json = super.$formatDatabaseJson(json);
-  
+        //TODO: refactor with this https://github.com/ramda/ramda/wiki/Cookbook#rename-keys-of-an-object
         const curriedReduceWithReference = R.curry(snakeCaseReducerWithReference);
         const reducerFn = curriedReduceWithReference(R.__, R.__, json);
         return R.reduce(reducerFn, {}, Object.keys(json));
     }
 
     $parseDatabaseJson(json) {
-        
+        //TODO: refactor with this https://github.com/ramda/ramda/wiki/Cookbook#rename-keys-of-an-object
         const curriedReduceWithReference = R.curry(camelCaseReducerWithReference);
         const reducerFn = curriedReduceWithReference(R.__, R.__, json);
         return super.$parseDatabaseJson(R.reduce(reducerFn, {}, Object.keys(json)));

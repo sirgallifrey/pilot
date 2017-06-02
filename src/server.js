@@ -1,17 +1,32 @@
 'use strict';
 
+const Hapi = require('hapi');
 const DB = require('./db');
-const UserRepository = require('./repositories/userRepository');
+const server = new Hapi.Server();
+
+server.connection({port: 3000});
 
 DB.init();
 
-UserRepository.create({ firstName: 'Adilson'}).then(user => {
+server.register([
+    {
+        plugin: './api',
+        options: {
+            routes: {
+                prefix: '/api'
+            }
+        }
+    }
+], (err) => {
 
-    return UserRepository.findUserById(user.id)
-}).then(user => {
+    if (err) {
+        throw err;
+    }
 
-    console.log('the user:', user);
+    server.start((err) => {
+
+        console.log(`Server has started at: ${server.info.url}`);
+    });
 });
-
 
 
